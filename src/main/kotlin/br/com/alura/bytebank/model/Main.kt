@@ -1,5 +1,9 @@
 package br.com.alura.bytebank.model
 
+import java.lang.ArithmeticException
+import java.lang.NullPointerException
+import java.lang.NumberFormatException
+
 fun main() {
     println("Welcome to Bytebank!")
 
@@ -15,6 +19,149 @@ fun main() {
     clientHash()
 
     clientToString()
+
+    // execptionTesting()
+
+    castingExceptionTryCatchNormal()
+
+    castingExceptionExpression()
+
+    castingExceptionWhen()
+
+    // castingExceptionThrow()
+
+    // nullParameters()
+
+    nullSafeCall()
+
+    letFunction()
+
+    elvisOperator()
+
+    safeCast()
+}
+
+private fun safeCast() {
+    val address: Address? = Address(firstLine = "QS 10 Conjunto 4 Casa 1")
+    val number: Int? = address as? Int
+    println(number)
+}
+
+private fun elvisOperator() {
+    var nullAddress: Address? = Address(firstLine = "QS 10 Conjunto 4 Casa 1")
+    nullAddress?.let {
+        val length: Int = it.firstLine?.length ?: 0
+        val throwableLength: Int = it.firstLine?.length ?: throw NullPointerException()
+        println("length: $length")
+        println("length: $throwableLength")
+    }
+}
+
+private fun letFunction() {
+    var nullAddress: Address? = Address(firstLine = "QS 10 Conjunto 4 Casa 1")
+    nullAddress.let {
+        println(it?.firstLine)
+    }
+
+    nullAddress?.let { address: Address ->
+        println(address.firstLine)
+    }
+}
+
+private fun nullSafeCall() {
+    var nullAddress: Address? = Address(firstLine = "QS 10 Conjunto 4 Casa 1")
+    println(nullAddress?.firstLine?.length)
+}
+
+private fun nullParameters() {
+    var nullAddress: Address? = null
+    val nonNullAddress: Address = nullAddress!!
+    println(nonNullAddress.firstLine)
+}
+
+private fun castingExceptionThrow() {
+    for (i in 1..5) {
+        println(i)
+        val address = Any()
+        throw ArithmeticException()
+    }
+}
+
+private fun castingExceptionWhen() {
+    val input: String = "1"
+
+    val value: Double? = try {
+        input.toDouble()
+    } catch (e: NumberFormatException) {
+        println("casting exception")
+        e.printStackTrace()
+        null
+    }
+
+    val taxedValue: Double? = when {
+        value != null -> {
+            value + 0.1
+        }
+        else -> {
+            null
+        }
+    }
+
+    println("value with tax: $taxedValue")
+}
+
+private fun castingExceptionExpression() {
+    val input: String = "1"
+
+    val value: Double? = try {
+        input.toDouble()
+    } catch (e: NumberFormatException) {
+        println("casting exception")
+        e.printStackTrace()
+        null
+    }
+
+    if (value != null) {
+        println("value: $value")
+    } else {
+        println("invalid value")
+    }
+
+    val taxedValue: Double? = if (value != null) {
+        value + 0.1
+    } else {
+        null
+    }
+
+    println("value with tax: $taxedValue")
+}
+
+private fun castingExceptionTryCatchNormal() {
+    val input: String = "1.9"
+
+    try {
+        val value: Double = input.toDouble()
+        println("value $value")
+    } catch (e: NumberFormatException) {
+        println("casting exception")
+        e.printStackTrace()
+    }
+}
+
+private fun execptionTesting() {
+    for (i in 1..5) {
+        println(i)
+        try {
+            val address = Any()
+            address as Address
+        } catch (e: ClassCastException) {
+            println("Got an exception $e")
+            println(e.message)
+            println(e.stackTrace)
+            println(e.cause)
+            e.printStackTrace()
+        }
+    }
 }
 
 private fun clientToString() {

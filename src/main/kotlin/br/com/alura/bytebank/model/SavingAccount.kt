@@ -1,5 +1,7 @@
 package br.com.alura.bytebank.model
 
+import br.com.alura.bytebank.exception.InsuficientBalanceException
+
 class SavingAccount(
     holder: Client,
     number: Int,
@@ -9,7 +11,7 @@ class SavingAccount(
 ) : Account(holder, number, balance, investments, insurances) {
 
     override fun withdraw(value: Double) {
-        if (value > this.balance) return
+        if (value > this.balance) throw InsuficientBalanceException()
         this.balance -= value
     }
 }

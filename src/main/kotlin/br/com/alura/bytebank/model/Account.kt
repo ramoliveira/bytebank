@@ -3,12 +3,12 @@ package br.com.alura.bytebank.model
 import br.com.alura.bytebank.model.ScoreType.*
 
 abstract class Account(
-    holder: Client,
+    protected val holder: Client,
     number: Int,
     balance: Double,
     private var investments: Array<Investment>,
     private var insurances: Array<Insurance>
-) {
+) : Authenticable by holder {
     var name: String = holder.name
         private set
 

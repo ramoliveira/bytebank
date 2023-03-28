@@ -1,3 +1,4 @@
+import br.com.alura.bytebank.exception.InsuficientBalanceException
 import br.com.alura.bytebank.model.*
 import br.com.alura.bytebank.model.InsuranceType.CAR
 import br.com.alura.bytebank.model.InsuranceType.LIFE
@@ -6,6 +7,7 @@ import br.com.alura.bytebank.model.ScoreType.GOOD
 import br.com.alura.bytebank.model.ScoreType.NEUTRAL as NeutralScore
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class AccountTest {
 
@@ -59,8 +61,9 @@ class AccountTest {
     @Test
     fun test_failed_withdraw() {
         val expected = 22.0
-        account.withdraw(1000.0)
-        assertEquals(expected, account.balance)
+        assertThrows<InsuficientBalanceException> {
+            account.withdraw(1000.0)
+        }
     }
 
     @Test
