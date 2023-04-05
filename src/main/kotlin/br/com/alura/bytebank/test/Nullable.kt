@@ -1,12 +1,13 @@
-package br.com.alura.bytebank.model
+package br.com.alura.bytebank.test
 
+import br.com.alura.bytebank.model.Address
+import br.com.alura.bytebank.model.Authenticable
+import br.com.alura.bytebank.model.Client
 import java.lang.ArithmeticException
 import java.lang.NullPointerException
 import java.lang.NumberFormatException
 
-fun main() {
-    println("Welcome to Bytebank!")
-
+fun testNullable() {
     val (holder, accountNumber, balance) = declaringVariables()
     stringInterpolation(holder, accountNumber, balance)
 
@@ -236,4 +237,3 @@ private fun declaringVariables(): Triple<String, Int, Double> {
 
     return Triple(holder, accountNumber, balance)
 }
-
