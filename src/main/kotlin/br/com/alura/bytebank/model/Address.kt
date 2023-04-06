@@ -18,4 +18,12 @@ class Address(
             country: ${this.country}
         """.trimMargin().trimIndent()
     }
+
+    fun complete(): String {
+        return """
+$firstLine, $secondLine
+$city - $state, $country
+$zipCode
+        """.trimIndent()
+    }
 }
